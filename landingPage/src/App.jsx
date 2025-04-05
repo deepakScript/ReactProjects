@@ -1,14 +1,17 @@
-import { useState } from 'react'
-import Home from './Components/Home'
+import "./App.css";
+import Home from "./Components/Home";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init({
+  duration:1000
+});
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div>
+    <>
       <Home />
-    </div>
-  )
+    </>
+  );
 }
 
-export default App
+export default App;
