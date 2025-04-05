@@ -1,4 +1,5 @@
 import React from 'react'
+import "@lottiefiles/lottie-player";
 import "./Home.css";
 const Home = () => {
     return (
@@ -7,15 +8,15 @@ const Home = () => {
                 <div className="d-flex parts">
                     <div className="part1">
                         <h3>MERN Stack Developer</h3>
-                        <div className="h-50">
-                            <dotlottie-player
-                                src="https://lottie.host/c3374d1b-d481-4c63-8bb8-1da0bc338b10/o454B92FLR.lottie"
+                        <div>
+                            <lottie-player
+                                src="/path/to/your/animation.lottie"
                                 background="transparent"
                                 speed="1"
-                                style="width: 300px; height: 300px"
                                 loop
                                 autoplay
-                            ></dotlottie-player>
+                                style={{ width: '300px', height: '300px' }}
+                            ></lottie-player>
                         </div>
                     </div>
                     <div className="part2"></div>
