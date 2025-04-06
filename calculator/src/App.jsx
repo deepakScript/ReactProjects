@@ -1,17 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// Importing the Calculator component from the Components directory
+import Calculator from './Components/Calculator'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div className='text-cyan-700 text-center'>
-        Hello World
-      </div>
-    </>
+    <div>
+      <Calculator />
+    </div>
   )
 }
 
