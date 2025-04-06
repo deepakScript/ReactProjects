@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function Calculator() {
+const Calculator= () => {
     const [result, setResult] = useState("");
 
     const clickHandle = (e) =>{
