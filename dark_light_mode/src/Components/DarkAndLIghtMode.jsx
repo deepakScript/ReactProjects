@@ -7,18 +7,16 @@ const DarkAndLIghtMode = () => {
         if (mode === 'light') {
             setMode('dark');
             document.body.style.backgroundColor = 'black';
-            document.body.style.color = 'white';
         } else {
             setMode('light');
             document.body.style.backgroundColor = 'white';
-            document.body.style.color = 'black';
         }
         
     }
     return (
         <div>
-            {/* ${mode === 'dark'?'text-white':'text-black'} */}
-            <h1 className={`text-xl  font-bold`}>This is Light and dark Mode button</h1>
+            
+            <h1 className={`text-xl ${mode === 'dark'?'text-white':'text-black'}  font-bold`}>This is Light and dark Mode button</h1>
             <div className='flex justify-center items-center h-screen mt-4'>
                 {mode === 'light' ? (
                     <button onClick={togglemode} className='bg-gray-300 p-2 rounded-full '>
