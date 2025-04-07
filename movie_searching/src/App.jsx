@@ -14,7 +14,7 @@ function App() {
     setLoading(true);
     const res = await fetch(`https://www.omdbapi.com/?s=${searchMovie}&apikey=3568dab`);
     const data = await res.json();
-    setAllMovieData(data);
+    setAllMovieData(data.search);
     setLoading(false);
   } catch (error) {
     setLoading(false);
@@ -26,7 +26,7 @@ function App() {
     <>
       <Navbar />
       <div className='bg'>
-        <SearchBar searchMovie={searchMovie} setSearchMovie={setSearchMovie}  />
+        <SearchBar searchMovie={searchMovie} setSearchMovie={setSearchMovie} fetchMovieData={fetchMovieData} />
         <MovieCard allMovieData={allMovieData} loading={loading} />
       </div>
     </>
