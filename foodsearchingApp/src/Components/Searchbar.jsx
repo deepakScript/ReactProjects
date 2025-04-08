@@ -2,8 +2,12 @@ import React from 'react'
 
 const Searchbar = () => {
   return (
-    <div>
-      <h1>SearchBar</h1>
+    <div className='main flex justify-center py-10'>
+      <input type="text"
+      placeholder='Search for food items'
+      className='bg-gray-200 py-1.5 px-2 w-80 border-2 border-gray-400 rounded-l-lg focus:outline-none focus:border-gray-500'
+      />
+      <button className='bg-[#F8EFBA] px-5 py-1.5 border-x-2 border-b-2 border-gray-400 rounded-r-lg'>Search</button>
     </div>
   )
 }
