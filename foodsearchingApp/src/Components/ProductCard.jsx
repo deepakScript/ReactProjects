@@ -1,30 +1,38 @@
 import React from 'react'
 
-const ProductCard = ({ allfood, loading }) => {
-    return (
-        <div className='main px-4 flex flex-wrap lg:px-10'>
-            {allfood.map((item, index) => {
-                const { label,calories, dishType, cuisineType, iamge } = item.recipe; 
-                return (
-                    <div className=" md:w-1/4 w-full p-3">
-                        <div className='content bg-gray-300 p-4 rounded-xl border-2 border-gray-600'>
-                            <img className='rounded-xl w-full mb-2' src={Image} alt="image" />
-                            <h1 className='text-lg font-bold'>{label}</h1>
-                            <h3> Calories: {calories}</h3>
-                            <h3> Dish Types: {dishType}</h3>
-
-                            <div className='flex justify-between items-center'>
-                                <button className='bg-orange-300 px-5 py-1.5 rounded-xl'>Add to Cart</button>
-                                <button className='bg-green-600 px-5 py-1.5 rounded-xl'>Buy Now</button>
-                            </div>
-                        </div>
-                    </div>
-                )
-            }
-            )
-            }
+function ProductCard({ allFood, loading }) {
+  return (
+    <>
+      {loading ?
+        <div className='flex justify-center '>
+          <img className=' w-16 py-20' src="https://i.gifer.com/ZZ5H.gif" alt="" />
         </div>
-    )
+        : 
+        <>
+        <div className='flex flex-wrap px-4 lg:px-10 '>
+          {allFood.map((item, index) => {
+            const { image, label, calories, dishType, cuisineType } = item.recipe
+            return (
+              <div className="p-2 md:w-1/4 w-full" key={index}>
+                <div className="bg-[#F8EFBA] p-3 rounded-2xl shadow-lg hover:-translate-y-1 border-2 border-gray-600">
+                  <img className='rounded-lg w-full mb-2' src={image} alt="" />
+                  <h2 className='text-xl text-black font-bold'>{label.substr(0, 25)}</h2>
+                  <h2 className='text-lg text-black'><span className="font-bold">Calories:</span> {calories}</h2>
+                  <h2 className='text-lg text-black'><span className='font-bold'>DishType:</span> {dishType}</h2>
+                  <h2 className='text-lg text-black mb-2'><span className='font-bold'>CuisineType:</span> {cuisineType}</h2>
+                  <div className=" flex  space-x-2 justify-between">
+                    <button className='bg-[#706fd3] px-5 py-1.5 text-white rounded-lg'>Add to card</button>
+                    <button className='bg-[#ff4757] px-5 py-1.5 text-white rounded-lg'>Buy Now</button>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        </>
+        }
+    </>
+  )
 }
 
 export default ProductCard
