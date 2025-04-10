@@ -3,7 +3,7 @@ import React from 'react'
 const Navigation = () => {
     return (
         <div>
-            <div className='container'>
+            <nav className='container'>
                 <div className='logo'>
                     <img src="/images/brand_logo.png" alt="logo" />
                 </div>
@@ -16,7 +16,7 @@ const Navigation = () => {
 
                 <button>Login</button>
 
-            </div>
+            </nav>
         </div>
     )
 }
