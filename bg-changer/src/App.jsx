@@ -13,7 +13,7 @@ function App() {
   }
 
   return (
-    <div className='text-white'>
+    <div>
       <ColorButton setBgcolor={setBgcolor}/>
     </div>
   )
