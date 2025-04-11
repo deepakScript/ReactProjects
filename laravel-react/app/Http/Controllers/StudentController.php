@@ -13,7 +13,8 @@ class StudentController extends Controller
         $students = Student::all();
         return response()->json($students);
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'age' => 'required|integer',
@@ -27,27 +28,38 @@ class StudentController extends Controller
         ], 201);
     }
 
-    public function update($id , Request $request){
-        
+    public function update($id, Request $request)
+    {
         $request->validate([
-            'name' => 'sometimes|required|max:255',
-            'age' => 'sometimes|required|integer',
-            'gender' => 'sometimes|required|string',
+            'name' => 'sometimes|string|max:255',
+            'age' => 'sometimes|integer',
+            'gender' => 'sometimes|string',
         ]);
-        $Student = Student::findOrFail($id);
-        if(!$Student){
+
+        if ($student = Student::find($id)) {
+            if($student->update($request->all())){
+                return response()->json([
+                    'message' => 'Student updated successfully',
+                    'student' => $student
+                ]);
+            } else {
+                return response()->json([
+                    'message' => 'Failed to update student'
+                ], 500);
+            }
+
+        } else {
             return response()->json([
                 'message' => 'Student not found'
             ], 404);
         }
-        $Student->update($request->all());
-        return response()->json([
-            'message' => 'Student updated successfully',
-            'student' => $Student
-        ]);
+
+        
     }
 
-    public function destroy($id){
+
+    public function destroy($id)
+    {
         $student = Student::findOrFail($id);
         $student->delete();
         return response()->json([
