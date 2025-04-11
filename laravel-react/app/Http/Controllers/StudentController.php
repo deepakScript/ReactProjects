@@ -26,4 +26,32 @@ class StudentController extends Controller
             'student' => $Student
         ], 201);
     }
+
+    public function update($id , Request $request){
+        
+        $request->validate([
+            'name' => 'sometimes|required|max:255',
+            'age' => 'sometimes|required|integer',
+            'gender' => 'sometimes|required|string',
+        ]);
+        $Student = Student::findOrFail($id);
+        if(!$Student){
+            return response()->json([
+                'message' => 'Student not found'
+            ], 404);
+        }
+        $Student->update($request->all());
+        return response()->json([
+            'message' => 'Student updated successfully',
+            'student' => $Student
+        ]);
+    }
+
+    public function destroy($id){
+        $student = Student::findOrFail($id);
+        $student->delete();
+        return response()->json([
+            'message' => 'Student deleted successfully'
+        ]);
+    }
 }
