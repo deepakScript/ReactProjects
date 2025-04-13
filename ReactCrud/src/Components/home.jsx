@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 const Home = () => {
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
-
+   
     const [isOpen, setIsOpen] = useState(false);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
@@ -71,14 +71,31 @@ const Home = () => {
             setStudents((prevStudents) => prevStudents.filter((student) => student.id !== studentId));
         } catch (error) {
             console.error('Error deleting student:', error);
+        }finally{
+            alert('Student deleted successfully!');
+            setLoading(false);
+        }
+    }
+
+    const editStudent = async (studentId) => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/students/${studentId}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setStudents((prevStudents) => prevStudents.map((student) => (student.id === studentId ? data : student)));
+        } catch (error) {
+            console.error('Error editing student:', error);
+        }finally{
+            alert('Student edited successfully!');
+            setLoading(false);
         }
     }
     return (
         <div>
 
             <div className="p-6">
-
-
                 {isOpen && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                         <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md relative">
