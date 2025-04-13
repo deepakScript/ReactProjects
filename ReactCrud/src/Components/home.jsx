@@ -1,52 +1,91 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const home = () => {
+const Home = () => {
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchStudents = async () => {
-            try{
-                const response = await fetch('https://localhost:8000/api/students');
-                if(!response.ok) {
+            try {
+                const response = await fetch('http://localhost:8000/api/students');
+                if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
                 setStudents(data);
-            }catch(error) {
+            } catch (error) {
                 console.error('Error fetching students:', error);
-            }finally {
+            } finally {
                 setLoading(false);
             }
         }
         fetchStudents();
-    }, [])
-    if(loading) {
-        return <div>Loading...</div>;
+    }, []);
+
+    const handleAddStudent = async (newStudent) => {
+        try{
+            const response = await fetch('http://localhost:8000/api/students', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newStudent),
+            });
+            if(response.ok){
+                const addedStudent = await response.json();
+                setStudents((prevStudents) => [...prevStudents, addedStudent]);
+            }
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+        }catch (error) {
+            console.error('Error adding student:', error);
+        }
+        finally {
+            setLoading(false);
+            setModelOpen(false);
+            setNewStudent({name:'', age:'', gender:''});
+        }
+    };
+
+
+    const handleDeleteStudent = async (studentId) => {
+        try {
+            const response = await fetch(`http://localhost:8000/api/students/${studentId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            setStudents((prevStudents) => prevStudents.filter((student) => student.id !== studentId));
+        } catch (error) {
+            console.error('Error deleting student:', error);
+        }   
     }
-    return (
-       <div>
-        <h1>Student List</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Grade</th>
-                </tr>
-            </thead>
-            <tbody>
-                {students.map((student) => (
-                    <tr key={student.id}>
-                        <td>{student.name}</td>
-                        <td>{student.age}</td>
-                        <td>{student.grade}</td>
+return (
+        <div>
+            {loading ? <p>Loading...</p> : null}
+            <h1>Student List</h1>
+            <button onClick={() => setModelOpen(true)}>Add Student</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
-       </div>
+                </thead>
+                <tbody>
+                    {students.map((student) => (
+                        <tr key={student.id}>
+                            <td>{student.name}</td>
+                            <td>{student.age}</td>
+                            <td>{student.gender}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div >
     )
 }
-
-export default home
+export default Home
