@@ -163,6 +163,7 @@ const Home = () => {
                         <th>Name</th>
                         <th>Age</th>
                         <th>Gender</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -171,6 +172,10 @@ const Home = () => {
                             <td>{student.name}</td>
                             <td>{student.age}</td>
                             <td>{student.gender}</td>
+                            <td>
+                                <button onClick={() => handleDeleteStudent(student.id)} className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">Delete
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
