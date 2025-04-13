@@ -66,4 +66,9 @@ class StudentController extends Controller
             'message' => 'Student deleted successfully'
         ]);
     }
+    public function show($id)
+    {
+        $student = Student::findOrFail($id);
+        return response()->json($student);
+    }
 }
