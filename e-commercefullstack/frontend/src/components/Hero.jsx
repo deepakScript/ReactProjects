@@ -1,10 +1,43 @@
-import React from 'react'
+import React from 'react';
+import heroImg from '../assets/hero.png';
+import { BsFire } from 'react-icons/bs';
+import { FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaPlay } from 'react-icons/fa';
 
 const Hero = () => {
   return (
-    <div>
-      Hero
-    </div>
+    <section className='max-padd-container bg-hero bg-cover bg-center
+    bg-no-repeat h-[667px] w-full relative'>
+      <div className='bg-white p-3 rounded-2xl max-w-[233px] relative
+      top-8 xl:top-12'>
+        <div className='realtive '>
+          <img src={heroImg} alt="" height={211} width={211}
+          className='rounded-3xl mb-3' />
+          <span className='absolute top-1/2 left-1/2 flexCenter
+          -translate-y-1/2 -translate-x-1/2 h-8 w-8 bg-secondary rounded-full cursor-pointer'>
+            <span className='absolute h-full w-full rounded-full bg-white
+            opacity-50 animate-ping'>
+            </span>
+            <FaPlay className='text-sm relative left-[1px]
+            text-white' />
+          </span>
+
+        </div>
+        <p className='text-[13px]' ><b>Unlock</b> your best look, one click at a time, Your style upgrade starts here, shop today!</p>
+      </div>
+      <div>
+        <h5>MODERN COLLECTION <BsFire /> </h5>
+        <h1>
+          Every Click brings you  closer to perfection shop now!
+        </h1>
+        <div>
+          <Link>
+          Check our modern Collection <FaArrowRight />
+          </Link>
+        </div>
+      </div>
+    </section>
   )
 }
 
