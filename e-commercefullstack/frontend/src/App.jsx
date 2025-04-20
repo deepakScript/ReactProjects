@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {Route, Routes} from react-router-dom;
+import {Route, Routes} from 'react-router-dom';
 import './App.css'
 import Header from './components/Header'
 import Home from './pages/Home'
@@ -8,9 +8,9 @@ import Product from './pages/Product'
 import Testomonials from './pages/Testomonials'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
+    
     <main>
       <Header/>
       <Routes>
