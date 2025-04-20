@@ -12,6 +12,9 @@ const Header = () => {
 
   const [token, setToken] = useState('');
   const [menuOppened, setMenuOpened] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpened((prev) => !prev);
+  }
   return (
     <header className='max-padd-container flex w-full z-50'>
       <div className='flexBetween py-3 '>
@@ -34,11 +37,13 @@ const Header = () => {
 
       {/* botton right side */}
       <div className='flex-1 flex items-center justify-end gap-x-2 xs:gap-x-8 '>
-        <FaBarsStaggered className='xl:hidden cursor-pointer text-xl' />
+        <FaBarsStaggered
+        onClick={toggleMenu}
+        className='xl:hidden cursor-pointer text-xl' />
         <FaSearch className='text-lg cursor-pointer' />
-        <Link to='/cart' className='flex relative'>
+        <Link to={''} className='flex relative'>
           <TbBasket className='text-[27px]' />
-          <span className='bg-secondary text-white text-[12px] font-semibold left-1.5 -top-3.5 flexCenter w-4 h-4 rounded-full shadow-md'>0</span>
+          <span className='bg-secondary text-white text-[12px] font-semibold absolute left-1.5 -top-3.5 flexCenter w-4 h-4 rounded-full shadow-md'>0</span>
         </Link>
 
         {/* user profile */}

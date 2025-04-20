@@ -11,7 +11,7 @@ function App() {
 
   return (
     
-    <main>
+    <main className='overflow-hidden text-[#404040]'>
       <Header/>
       <Routes>
         <Route path='/' element={<Home />} />
