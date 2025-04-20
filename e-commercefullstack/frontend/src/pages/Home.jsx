@@ -1,9 +1,11 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
-const Home = () => {
+const Home = ({containerStyles}) => {
+ 
   return (
-    <div className='text-black'>
-      Home
+    <div>
+
     </div>
   )
 }
