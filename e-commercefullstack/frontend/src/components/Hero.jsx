@@ -26,14 +26,18 @@ const Hero = () => {
         </div>
         <p className='text-[13px]' ><b>Unlock</b> your best look, one click at a time, Your style upgrade starts here, shop today!</p>
       </div>
-      <div>
+      <div className='mt-12 sm:mt-20 xl:mt-40 max-2-[777px]
+      text-secondary medium-18'>
         <h5>MODERN COLLECTION <BsFire /> </h5>
-        <h1>
+        <h1 className='h1 font-[500] capitalize max-2-[722px]'>
           Every Click brings you  closer to perfection shop now!
         </h1>
-        <div>
-          <Link>
-          Check our modern Collection <FaArrowRight />
+        <div className='flex'>
+          <Link className='bg-white text-xs font-medium p-1 rounded-full flexCenter gap-x-2 group'>
+          Check our modern Collection <FaArrowRight className='bg-secondary
+          text-white rounded-full h-11 w-11 p-3 m-[3px] border-white
+          group-hover:-rotate-[20deg] transition-all duration-500
+          ' />
           </Link>
         </div>
       </div>
