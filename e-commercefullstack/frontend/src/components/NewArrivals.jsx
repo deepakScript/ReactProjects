@@ -28,8 +28,8 @@ const NewArrivals = () => {
   },[products])
 
   return (
-    <section>
-      <Title />
+    <section className='max-padd-container pt-16 pb-6 bg-primary'>
+      <h2 className='h2 ml-2' > New <span className='text-secondary h2'>Arrivals</span></h2>
       {/* sweeper container */}
 
       <Swiper
@@ -60,7 +60,7 @@ const NewArrivals = () => {
         }}
         navigation={true}
         modules={[Autoplay, Pagination]}
-        className="h-[555px]"
+        className="h-[555px]  sm:h-[411px]"
       >
         {newArrivals.map((product) => (
           <SwiperSlide key={product._id}>
