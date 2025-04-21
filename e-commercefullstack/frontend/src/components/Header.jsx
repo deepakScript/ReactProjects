@@ -17,7 +17,7 @@ const Header = () => {
   }
   return (
     <header className='max-padd-container flex w-full z-50'>
-      <div className='flexBetween py-3 '>
+      <div className='flexBetween py-3 lg:min-w-[340px]'>
         {/* logo left side */}
         <Link to='/' className='flex flex-1'>
           <div className='bold-32'>
@@ -29,7 +29,7 @@ const Header = () => {
 
 
       {/* navbar */}
-      <div className='flex-1'>
+      <div className='flex-1 pt-2'>
         <Navbar containerStyles={`${menuOppened ? "flex items-start flex-col gap-y-8 fixed top-16 right-6 p-5 bg-white rounded-xl shadow-md w-52 ring-1 ring-slate-900 /5 z-50" :
           "hidden xl:flex gap-x-5 xl:gap-x-10 medium-15 ring-1 ring-slate-900/5 rounded-full p-1"}`} />
       </div>
