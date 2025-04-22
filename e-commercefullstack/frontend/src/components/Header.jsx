@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import '../index.css'
 import { Link } from 'react-router-dom'
 import Navbar from './Navbar'
@@ -6,11 +6,14 @@ import { FaBarsStaggered, FaRegCircle } from 'react-icons/fa6'
 import { FaSearch } from 'react-icons/fa'
 import { TbBasket, TbUserCircle } from 'react-icons/tb'
 import { RiUserLine } from 'react-icons/ri'
+import { ShopContext } from '../context/ShopContext'
 
 
 const Header = () => {
 
-  const [token, setToken] = useState('');
+  const {token}= useContext(ShopContext);
+  console.log(token);
+  
   const [menuOppened, setMenuOpened] = useState(false);
   const toggleMenu = () => {
     setMenuOpened((prev) => !prev);
@@ -38,8 +41,8 @@ const Header = () => {
       {/* botton right side */}
       <div className='flex-1 flex items-center justify-end gap-x-2 xs:gap-x-8 '>
         <FaBarsStaggered
-        onClick={toggleMenu}
-        className='xl:hidden cursor-pointer text-xl' />
+          onClick={toggleMenu}
+          className='xl:hidden cursor-pointer text-xl' />
         <FaSearch className='text-lg cursor-pointer' />
         <Link to={''} className='flex relative'>
           <TbBasket className='text-[27px]' />
