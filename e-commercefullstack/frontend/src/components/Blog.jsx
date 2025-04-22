@@ -12,7 +12,7 @@ const Blog = () => {
             <img src={blog.image} alt="blogImg" className='rounded-3xl border-[11px] border-primary
           overflow-hidden relative' />
 
-            <div className='absolute top-0 h-full w-full bg-black/24 ' />
+            <div className='absolute w-full bg-black/24 ' />
 
             <div className=' bottom-4 left-4 text-[15px]'>
               <h3 className='h3 font-bold text-black'>{blog.title}</h3>
