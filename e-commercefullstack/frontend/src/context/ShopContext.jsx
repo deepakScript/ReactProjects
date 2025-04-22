@@ -10,8 +10,8 @@ const ShopContextProvider = ({children}) => {
   const deliveryCharge = 50;
   const navigate = useNavigate();
   const [search, setSearch] = useState('')
-  const [ShowSearch, setShowSearch] = useState(false)
-  const [token, setToken] = useState('hello')
+  const [ShowSearch, setShowSearch] = useState(true)
+  const [token, setToken] = useState('')
 
   const value = {currency, deliveryCharge, navigate, products, token, setToken, search, setSearch, ShowSearch, setShowSearch}
       

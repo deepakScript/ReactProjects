@@ -12,7 +12,7 @@ import { ShopContext } from '../context/ShopContext'
 const Header = () => {
 
   const {token}= useContext(ShopContext);
-  console.log(token);
+  
   
   const [menuOppened, setMenuOpened] = useState(false);
   const toggleMenu = () => {
