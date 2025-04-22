@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import ShowSearch from '../components/ShowSearch'
 import { ShopContext } from '../context/ShopContext'
 import Product from './Product';
+import Item from '../components/Item';
 
 const Collection = () => {
   const { products, search, showsearch } = useContext(ShopContext);
@@ -51,7 +52,7 @@ const Collection = () => {
   }
 
 
-  useEffect(()=>{
+  useEffect(() => {
     let filtered = applyFilters();
     let sorted = applySorting(filtered)
 
@@ -62,7 +63,7 @@ const Collection = () => {
 
 
   const getPaginationProducts = () => {
-    const startIndex = (currentPage -1 ) * itemsPerPage
+    const startIndex = (currentPage - 1) * itemPerPage
     const endIndex = startIndex + itemPerPage
     return filteredProducts.slice(startIndex, endIndex)
   }
@@ -114,10 +115,45 @@ const Collection = () => {
         </div>
 
         {/* right side */}
-        <div>
-          <div>
-
+        <div className='bg-primary p-4 rounded-l-xl '>
+          <div className='grid grid-cols-1 md:grid-cols-2
+          lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6'>
+            {
+              getPaginationProducts().length > 0 ? (
+                getPaginationProducts().map((product) => (
+                  <Item product={product} />
+                ))
+              ) : (
+                <p className='capatalise'>No Products found for selectd filters</p>
+              )
+            }
           </div>
+
+          {/* paginations */}
+          <div>
+            <button disabled={currentPage === 1} onClick={() =>
+              setCurrentPage((prev) => prev - 1)}
+              className={`${currentPage === 1 && "opacity-50 cursor-not-allowed"} btn-secondary !py-1 !px-3`}
+            >Previous</button>
+            {Array.from({ length: totalPages },
+              (_, index) => (
+                <button key={index + 1} onClick={() =>
+                  setCurrentPage(index + 1)
+                }
+                  className={`${currentPage === index + 1 && "bg-tertiary text-white"} btn-light !py-1 !px-3`}
+                >
+                  {index + 1}
+
+                </button>
+              )
+            )}
+
+            <button disabled={currentPage === totalPages} onClick={() =>
+              setCurrentPage((prev) => prev + 1)}
+              className={`${currentPage === totalPages && "opacity-50 cursor-not-allowed"} btn-secondary !py-1 !px-3`}
+            >Next</button>
+          </div>
+
         </div>
       </div>
     </div>
