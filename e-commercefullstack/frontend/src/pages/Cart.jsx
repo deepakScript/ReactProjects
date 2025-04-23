@@ -74,7 +74,9 @@ const Cart = () => {
                 <div className='flex flex-col w-full'>
                   <div className='flexBetween'>
                     <h5 className='h5 !my-0 line-clamp-1'>{productData.name}</h5>
-                    <fabagWindowClose
+                    <fabagWindowClose onClick={
+                      () => updateQuantity(item._id, item.size, 0)
+                    }
                       className='cursor-pointer text-secondary' />
                   </div>
                   <p className='bold-14 my-0.5'>{item.size}</p>
@@ -87,6 +89,9 @@ const Cart = () => {
                   <h4 className='h4'>{currency}{productData.price}
                   </h4>
                 </div>
+              </div>
+              <div>
+                <CartTotal />
               </div>
             </div>
             </div>
