@@ -11,7 +11,7 @@ import { ShopContext } from '../context/ShopContext'
 
 const Header = () => {
 
-  const {token}= useContext(ShopContext);
+  const {token, getCartCount}= useContext(ShopContext);
   
   
   const [menuOppened, setMenuOpened] = useState(false);
@@ -46,7 +46,7 @@ const Header = () => {
         <FaSearch className='text-lg cursor-pointer' />
         <Link to={'/cart'} className='flex relative'>
           <TbBasket className='text-[27px]' />
-          <span className='bg-secondary text-white text-[12px] font-semibold absolute left-1.5 -top-3.5 flexCenter w-4 h-4 rounded-full shadow-md'>0</span>
+          <span className='bg-secondary text-white text-[12px] font-semibold absolute left-1.5 -top-3.5 flexCenter w-4 h-4 rounded-full shadow-md'>{getCartCount()}</span>
         </Link>
 
         {/* user profile */}
