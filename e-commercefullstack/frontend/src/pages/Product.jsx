@@ -98,6 +98,7 @@ const Product = () => {
                   return order.indexOf(a) - order.indexOf(b)
                 }).map((item, i) => (
                   <button
+                  key={i}
                   onClick={() => setSize(item)}
                   className={`${item === size ? "ring-slate-900/20": "ring-1 ring-slate-900/5"} medium-14 h-8 w-10 bg-primary rounded`}>
                     {item}

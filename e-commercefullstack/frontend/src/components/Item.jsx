@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 
 const Item = ({ product }) => {
     return (
-        <div className='bottom-12 relative'>
-            <Link className='flexCenter relative top-12 overflow-hidden m-2.5 rounded-xl'>
+        <div  className='bottom-12 relative'>
+            <Link
+            to={`/product/${product._id}`}
+            className='flexCenter relative top-12 overflow-hidden m-2.5 rounded-xl'>
                 <img src={product.image[0]} alt="product image" />
             </Link>
 
