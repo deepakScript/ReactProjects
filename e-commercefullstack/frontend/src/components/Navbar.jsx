@@ -1,10 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-const Navbar = ({containerStyles}) => {
+const Navbar = ({ containerStyles }) => {
   const navLinks = [
     {
-      Path: '/',
+      path: '/',
       title: 'Home'
     },
     {
@@ -12,22 +12,30 @@ const Navbar = ({containerStyles}) => {
       title: 'Collection'
     },
     {
-      path: '/testomonial', 
-      title: 'Testomonial'
+      path: '/testimonial',  // Fixed typo in path
+      title: 'Testimonial'   // Fixed typo in title
     },
     {
-      path: '/mailto:info@deepakchhantya.com.np',
+      path: '/contact',      // Changed to route path instead of mailto
       title: 'Contact'
     }
   ]
+
   return (
     <nav className={`${containerStyles}`}>
       {navLinks.map((link) => (
-        <NavLink to={link.path} key={link.title}
-        className={({isActive})=> `${isActive ? "active-link" : ""} px-3 py-2 rounded-full `}
-        
+        <NavLink 
+          to={link.path} 
+          key={link.title}
+          className={({ isActive }) => 
+            `px-3 py-2 rounded-full transition-colors duration-200 ${
+              isActive 
+                ? "active-link" 
+                : "text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+            }`
+          }
+          end  // Important for home link to only match exactly
         >
-          
           <div className='flexCenter gap-x-1'>
             {link.title}
           </div>

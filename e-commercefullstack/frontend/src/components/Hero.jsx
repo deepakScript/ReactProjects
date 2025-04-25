@@ -26,9 +26,9 @@ const Hero = () => {
         </div>
         <p className='text-[13px]' ><b>Unlock</b> your best look, one click at a time, Your style upgrade starts here, shop today!</p>
       </div>
-      <div className='mt-12 sm:mt-20 xl:mt-40 max-2-[777px]
+      <div className='mt-6 sm:mt-20 xl:mt-40 max-2-[777px]
       text-secondary medium-18'>
-        <h5>MODERN COLLECTION <BsFire /> </h5>
+        <h5 className='flex'>MODERN COLLECTION <BsFire /> </h5>
         <h1 className='h1 font-[500] capitalize max-2-[722px]'>
           Every Click brings you  closer to perfection shop now!
         </h1>

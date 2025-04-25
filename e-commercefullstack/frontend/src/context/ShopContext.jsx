@@ -1,11 +1,9 @@
-import React, { use, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { createContext, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { products } from '../assets/data'
-
-
-import toast from 'toastify-js'
-import "toastify-js/src/toastify.css"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export const ShopContext = createContext()
 
@@ -16,94 +14,102 @@ const ShopContextProvider = ({ children }) => {
   const [search, setSearch] = useState('')
   const [ShowSearch, setShowSearch] = useState(true)
   const [token, setToken] = useState('')
-
   const [cartItems, setCartItems] = useState({})
-  
-
-
-  // adding items to cart
 
   const addToCart = async (itemId, size) => {
     if (!size) {
       toast.error("Please select a size first");
       return;
     }
-  
-    setCartItems(prev => {
-      let cartData = structuredClone(prev);          // clone the *latest* state
-  
-      if (cartData[itemId]) {
-        if (cartData[itemId][size]) {
-          cartData[itemId][size] += 1;
+
+    setCartItems(prevCartItems => {
+      const newCartItems = { ...prevCartItems };
+
+      if (newCartItems[itemId]) {
+        if (newCartItems[itemId][size]) {
+          newCartItems[itemId][size] += 1;
         } else {
-          cartData[itemId][size] = 1;
+          newCartItems[itemId][size] = 1;
         }
       } else {
-        cartData[itemId] = {};
-        cartData[itemId][size] = 1;
+        newCartItems[itemId] = { [size]: 1 };
       }
-  
-      return cartData;                               // return the new object
+
+      toast.success("Item added to cart!");
+      return newCartItems;
     });
   };
-  
 
   useEffect(() => {
-
+    console.log('Cart updated:', cartItems);
   }, [cartItems])
 
-  // cart count
-
-  const getCartCount = ()=> {
+  const getCartCount = () => {
     let totalcount = 0
-    for (const items in cartItems){
-      for (const item in cartItems[items]){
-        try{
-          if(cartItems[items][item] > 0){
+    for (const items in cartItems) {
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0) {
             totalcount += cartItems[items][item];
-           
           }
-        }catch(error){
+        } catch (error) {
           console.log(error);
-          
         }
       }
     }
+    return totalcount;
   }
 
   const updateQuantity = async (itemId, size, quantity) => {
-    let cartData = structuredClone(cartItems)
-    cartData[itemId][size] = quantity
-    setCartItems(cartData)
+    setCartItems(prev => {
+      const newCart = { ...prev };
+      if (newCart[itemId]) {
+        newCart[itemId][size] = quantity;
+      }
+      return newCart;
+    });
   }
 
   const getCartAmount = () => {
     let totalAmount = 0;
-    for(const items in cartItems){
+    for (const items in cartItems) {
       let itemInfo = products.find((product) => product._id === items)
-
-      for (const item in cartItems[items]){
-        try{
-          if(cartItems[items][item] > 0){
+      for (const item in cartItems[items]) {
+        try {
+          if (cartItems[items][item] > 0) {
             totalAmount += itemInfo.price * cartItems[items][item]
           }
-        }catch(error){
+        } catch (error) {
           console.log(error);
-          
         }
       }
     }
     return totalAmount
   }
 
-
-  const value = {getCartAmount, currency, deliveryCharge, navigate, products, token, setToken, search, setSearch, ShowSearch, setShowSearch, addToCart, getCartCount}
+  const value = { 
+    getCartAmount, 
+    currency, 
+    deliveryCharge, 
+    navigate, 
+    products, 
+    token, 
+    setToken, 
+    search, 
+    setSearch, 
+    ShowSearch, 
+    setShowSearch, 
+    addToCart, 
+    getCartCount,
+    cartItems,
+    updateQuantity,
+    setCartItems
+  }
 
   return (
     <ShopContext.Provider value={value}>
       {children}
     </ShopContext.Provider>
-
   )
 }
 
