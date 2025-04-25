@@ -25,25 +25,28 @@ const ShopContextProvider = ({ children }) => {
 
   const addToCart = async (itemId, size) => {
     if (!size) {
-      toast.error("Please select a size first")
+      toast.error("Please select a size first");
       return;
     }
-
-    let cartData = structuredClone(cartItems)
-
-    if (cartData[itemId]) {
-      if (cartData[itemId][size]) {
-        cartData[itemId][size] += 1
+  
+    setCartItems(prev => {
+      let cartData = structuredClone(prev);          // clone the *latest* state
+  
+      if (cartData[itemId]) {
+        if (cartData[itemId][size]) {
+          cartData[itemId][size] += 1;
+        } else {
+          cartData[itemId][size] = 1;
+        }
       } else {
-        cartData[itemId][size] = 1
+        cartData[itemId] = {};
+        cartData[itemId][size] = 1;
       }
-    } else {
-      cartData[itemId] = {}
-      cartData[itemId][size] = 1
-    }
-
-    setCartItems(cartData)
-  }
+  
+      return cartData;                               // return the new object
+    });
+  };
+  
 
   useEffect(() => {
 

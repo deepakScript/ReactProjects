@@ -8,8 +8,9 @@ const CartTotal = () => {
         <h4 className='h4'>Cart Total</h4>
         <div>
             <h5>SubTotal:</h5>
-            <p>{currency}{getCartAmount}</p>
+            <p>{currency}{getCartAmount}.00</p>
         </div>
+        <hr className='mx-auto h-[1px]' />
     </section>
   )
 }
