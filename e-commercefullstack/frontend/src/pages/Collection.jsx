@@ -115,45 +115,65 @@ const Collection = () => {
         </div>
 
         {/* right side */}
-        <div className='bg-primary p-4 rounded-l-xl '>
-          <div className='grid grid-cols-1 md:grid-cols-2
-          lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6'>
-            {
-              getPaginationProducts().length > 0 ? (
-                getPaginationProducts().map((product) => (
-                  <Item product={product} />
-                ))
-              ) : (
-                <p className='capatalise'>No Products found for selectd filters</p>
-              )
-            }
-          </div>
+        <div className='flex-1 bg-primary p-4 rounded-l-xl'>
+          {/* Search Term Display */}
+          {search && showsearch && (
+            <div className='mb-4 p-2 bg-white rounded-md shadow-sm'>
+              <p className='text-gray-700'>
+                Showing results for: <span className='font-semibold'>"{search}"</span>
+              </p>
+              <p className='text-sm text-gray-500'>
+                {filteredProducts.length} {filteredProducts.length === 1 ? 'item' : 'items'} found
+              </p>
+            </div>
+          )}
 
-          {/* paginations */}
-          <div>
-            <button disabled={currentPage === 1} onClick={() =>
-              setCurrentPage((prev) => prev - 1)}
-              className={`${currentPage === 1 && "opacity-50 cursor-not-allowed"} btn-secondary !py-1 !px-3`}
-            >Previous</button>
-            {Array.from({ length: totalPages },
-              (_, index) => (
-                <button key={index + 1} onClick={() =>
-                  setCurrentPage(index + 1)
-                }
-                  className={`${currentPage === index + 1 && "bg-tertiary text-white"} btn-light !py-1 !px-3`}
-                >
-                  {index + 1}
-
-                </button>
-              )
+          {/* Products Grid */}
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6'>
+            {getPaginationProducts().length > 0 ? (
+              getPaginationProducts().map((product) => (
+                <Item key={product.id} product={product} />
+              ))
+            ) : (
+              <div className='col-span-full text-center py-8'>
+                <p className='text-gray-500 capitalize'>No products found for selected filters</p>
+                {search && (
+                  <p className='text-sm text-gray-400 mt-2'>
+                    Try a different search term or adjust your filters
+                  </p>
+                )}
+              </div>
             )}
-
-            <button disabled={currentPage === totalPages} onClick={() =>
-              setCurrentPage((prev) => prev + 1)}
-              className={`${currentPage === totalPages && "opacity-50 cursor-not-allowed"} btn-secondary !py-1 !px-3`}
-            >Next</button>
           </div>
 
+          {/* Pagination */}
+          <div className='flex justify-center items-center gap-2 mt-8'>
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => prev - 1)}
+              className={`${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""} btn-secondary !py-1 !px-3`}
+            >
+              Previous
+            </button>
+
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => setCurrentPage(index + 1)}
+                className={`${currentPage === index + 1 ? "bg-tertiary text-white" : ""} btn-light !py-1 !px-3`}
+              >
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((prev) => prev + 1)}
+              className={`${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""} btn-secondary !py-1 !px-3`}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>

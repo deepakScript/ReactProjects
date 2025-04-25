@@ -24,7 +24,9 @@ const Navbar = ({containerStyles}) => {
     <nav className={`${containerStyles}`}>
       {navLinks.map((link) => (
         <NavLink to={link.path} key={link.title}
-        className={({isActive})=> `${isActive ? "active-link" : ""} px-3 py-2 rounded-full `}>
+        className={({isActive})=> `${isActive ? "active-link" : ""} px-3 py-2 rounded-full `}
+        
+        >
           
           <div className='flexCenter gap-x-1'>
             {link.title}

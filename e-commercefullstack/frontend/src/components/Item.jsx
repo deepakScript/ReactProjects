@@ -21,7 +21,7 @@ const Item = ({ product }) => {
                         <h5>4.8</h5>
                     </div>
                 </div>
-                <p className='line-clamp-2 py-1'>{product.description}</p>
+                <p className='line-clamp-2 py-1 mb-6'>{product.description}</p>
             </div>
         </div>
     )

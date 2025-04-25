@@ -60,7 +60,7 @@ const NewArrivals = () => {
         }}
         navigation={true}
         modules={[Autoplay, Pagination]}
-        className="h-[555px]  sm:h-[411px]"
+        className="h-[600px]  sm:h-[411px]"
       >
         {newArrivals.map((product) => (
           <SwiperSlide key={product._id}>
