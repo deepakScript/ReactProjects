@@ -2,40 +2,42 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import { FaRegWindowClose } from 'react-icons/fa';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
-import Item from '../components/Item';
+
+import CartTotal from '../components/CartTotal';
 
 const Cart = () => {
-  const { products, currency, cartItems, getCartCount, navigate, updateQuantity } = useContext(ShopContext);
+  const { products, currency, cartItems, getCartCount, navigate, updateQuantity, getCartAmount } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
-  const [quantities, setQuantities] = useState([]);
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     if (products.length > 0) {
       const tempData = [];
       const initialQuantities = {};
-      for (const items in cartItems) {
-        for (const item in cartItems[items]) {
-          if (cartItems[items][item] > 0) {
+      
+      for (const itemId in cartItems) {
+        for (const size in cartItems[itemId]) {
+          if (cartItems[itemId][size] > 0) {
             tempData.push({
-              _id: items,
-              size: item,
-              quantity: cartItems[items][item],
+              _id: itemId,
+              size: size,
+              quantity: cartItems[itemId][size],
             });
-            initialQuantities[`${items}-${items}`] = cartItems[items][item]
+            initialQuantities[`${itemId}-${size}`] = cartItems[itemId][size];
           }
         }
       }
-      setCartData(tempData)
-      setQuantities(initialQuantities)
+      setCartData(tempData);
+      setQuantities(initialQuantities);
     }
   }, [products, cartItems]);
 
   const increment = (id, size) => {
     const key = `${id}-${size}`;
-    const newValue = quantities[key] + 1
-    setQuantities(prev => ({ ...prev, [key]: newValue }))
-    updateQuantity(id, size, newValue)
-  }
+    const newValue = (quantities[key] || 0) + 1;
+    setQuantities(prev => ({ ...prev, [key]: newValue }));
+    updateQuantity(id, size, newValue);
+  };
 
   const decrement = (id, size) => {
     const key = `${id}-${size}`;
@@ -44,62 +46,90 @@ const Cart = () => {
       setQuantities(prev => ({ ...prev, [key]: newValue }));
       updateQuantity(id, size, newValue);
     }
+  };
+
+  if (cartData.length === 0) {
+    return (
+      <div className="text-center py-10">
+        <h3 className="h3">Your cart is empty</h3>
+        <button 
+          onClick={() => navigate('/shop')}
+          className="btn-primary mt-4"
+        >
+          Continue Shopping
+        </button>
+      </div>
+    );
   }
 
   return (
     <div>
       <div className='bg-primary mb-16'>
         <div className='max-padd-container py-10'>
-          {/* {title} */}
-          <h5 className='flexStart gap-x-4'>Cart</h5>
+          <h5 className='flexStart gap-x-4'>Cart ({getCartCount()} items)</h5>
         </div>
       </div>
-      <div className='mt-6'>
-        {cartData.map((item, i) => {
-          const productData = products.find(
-            (product) => product._id === item._id
-          );
-          const key = `${item._id}-${item.size}`;
-          return (
-            <div key={i}
-              className='rounded-lg bg-white p-2 mb-3'>
-              <div className='flex items-center gap-x-4'>
-                <div className='flex items-start gap-x-6'>
+      
+      <div className='max-padd-container'>
+        <div className='mt-6 space-y-4'>
+          {cartData.map((item, i) => {
+            const productData = products.find((product) => product._id === item._id);
+            const key = `${item._id}-${item.size}`;
+            
+            return (
+              <div key={i} className='rounded-lg bg-white p-4 shadow'>
+                <div className='flex items-center gap-4'>
                   <img
                     src={productData.image[0]}
-                    alt="productImg"
-                    className="w-16 sm:w-18 rounded"
+                    alt={productData.name}
+                    className="w-16 sm:w-20 rounded"
                   />
-                </div>
-                <div className='flex flex-col w-full'>
-                  <div className='flexBetween'>
-                    <h5 className='h5 !my-0 line-clamp-1'>{productData.name}</h5>
-                    <fabagWindowClose onClick={
-                      () => updateQuantity(item._id, item.size, 0)
-                    }
-                      className='cursor-pointer text-secondary' />
+                  
+                  <div className='flex-1'>
+                    <div className='flex justify-between'>
+                      <h5 className='h5 line-clamp-1'>{productData.name}</h5>
+                      <FaRegWindowClose 
+                        onClick={() => updateQuantity(item._id, item.size, 0)}
+                        className='cursor-pointer text-secondary hover:text-red-500' 
+                      />
+                    </div>
+                    
+                    <p className='bold-14 my-1'>Size: {item.size}</p>
+                    
+                    <div className='flex justify-between items-center mt-2'>
+                      <div className='flex items-center ring-1 ring-slate-900/5 rounded-full overflow-hidden'>
+                        <button 
+                          onClick={() => decrement(item._id, item.size)} 
+                          className='p-1.5 bg-white text-secondary hover:bg-gray-100'
+                        >
+                          <FaMinus size={14} />
+                        </button>
+                        <span className='px-3'>{quantities[key]}</span>
+                        <button 
+                          onClick={() => increment(item._id, item.size)} 
+                          className='p-1.5 bg-white text-secondary hover:bg-gray-100'
+                        >
+                          <FaPlus size={14} />
+                        </button>
+                      </div>
+                      
+                      <h4 className='h4'>
+                        {currency}{productData.price * quantities[key]}
+                      </h4>
+                    </div>
                   </div>
-                  <p className='bold-14 my-0.5'>{item.size}</p>
-                  <div className='flexBetween'>
-                    <div className='flex items-center ring-1 ring-slate-900/5 rounded-full
-                overflow-hidden bg-primary'>
-                      <button onClick={() => decrement(item._id, item.size)} className='p-1.5 bg-white text-secondary rounded-full shadow-md'><faMlirus />
-                      </button>
-                  </div>
-                  <h4 className='h4'>{currency}{productData.price}
-                  </h4>
                 </div>
               </div>
-              <div>
-                <CartTotal />
-              </div>
-            </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        
+        <div className='mt-8'>
+          <CartTotal />
         </div>
       </div>
-  )
+    </div>
+  );
 };
 
-export default Cart
+export default Cart;

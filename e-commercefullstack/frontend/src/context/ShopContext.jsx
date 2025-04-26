@@ -16,6 +16,20 @@ const ShopContextProvider = ({ children }) => {
   const [token, setToken] = useState('')
   const [cartItems, setCartItems] = useState({})
 
+
+  // Load cart from localStorage on initial render
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setCartItems(JSON.parse(savedCart));
+    }
+  }, []);
+
+  // Save cart to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
   const addToCart = async (itemId, size) => {
     if (!size) {
       toast.error("Please select a size first");
@@ -87,19 +101,19 @@ const ShopContextProvider = ({ children }) => {
     return totalAmount
   }
 
-  const value = { 
-    getCartAmount, 
-    currency, 
-    deliveryCharge, 
-    navigate, 
-    products, 
-    token, 
-    setToken, 
-    search, 
-    setSearch, 
-    ShowSearch, 
-    setShowSearch, 
-    addToCart, 
+  const value = {
+    getCartAmount,
+    currency,
+    deliveryCharge,
+    navigate,
+    products,
+    token,
+    setToken,
+    search,
+    setSearch,
+    ShowSearch,
+    setShowSearch,
+    addToCart,
     getCartCount,
     cartItems,
     updateQuantity,
