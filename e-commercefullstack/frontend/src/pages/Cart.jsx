@@ -6,7 +6,7 @@ import { FaMinus, FaPlus } from 'react-icons/fa6';
 import CartTotal from '../components/CartTotal';
 
 const Cart = () => {
-  const { products, currency, cartItems, getCartCount, navigate, updateQuantity, getCartAmount } = useContext(ShopContext);
+  const { products, currency, cartItems, getCartCount, navigate, updateQuantity } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   const [quantities, setQuantities] = useState({});
 

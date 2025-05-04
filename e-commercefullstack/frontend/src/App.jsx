@@ -18,7 +18,7 @@ function App() {
 
   return (
     
-    <main className='overflow-hidden text-[#404040'>
+    <main className='overflow-hidden text-[#404040]'>
       <ToastContainer />
       <Header/>
       <Routes>
