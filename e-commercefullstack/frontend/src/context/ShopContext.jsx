@@ -54,9 +54,8 @@ const ShopContextProvider = ({ children }) => {
     });
   };
 
-  useEffect(() => {
-    console.log('Cart updated:', cartItems);
-  }, [cartItems])
+  // useEffect(() => {
+  // }, [cartItems])
 
   const getCartCount = () => {
     let totalcount = 0
