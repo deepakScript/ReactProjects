@@ -9,7 +9,7 @@ const Footer = () => {
       <div className="footer-container">
         {/* Left side with e-commerce name */}
         <div className="footer-brand">
-          <h2>ShopEase</h2>
+          <h2>shop</h2>
           <p className="tagline text-white">Your one-stop shopping destination</p>
         </div>
 
